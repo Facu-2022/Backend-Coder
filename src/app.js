@@ -1,5 +1,5 @@
 import express from 'express'
-import ProductManager from '../producto.js'
+import ProductManager from './producto.js'
 
 
 
@@ -9,7 +9,7 @@ app.use(express.json())
 
 
 
-const productManager = new ProductManager('src/productos_new/productos.json')
+const productManager = new ProductManager('productos.json')
 
 
 

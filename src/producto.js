@@ -10,18 +10,9 @@ import fs from 'fs'
     }
 
 getProducts = async () => {
-      try{
-        if (fs.existsSync(this.path)) {
-        const content = await fs.promises.readFile(this.path, this.format);
-        const products = JSON.parse(content);
-        return products
-        console.log(products);
-      } else{
-        return [];
-      }
-    }catch(error){
-      console.log(error)
-    }
+  const content = fs.readFileSync(this.path, this.format);
+    const products = JSON.parse(content);
+    return products;
   };
 
     getId =()=>{
@@ -122,7 +113,4 @@ getProducts = async () => {
 }
 
 
-// const carro = new ProductManager ("ejemplo.txt")
-// carro.addProduct("producto prueba", "Este es un producto prueba", 200, "Sin imagen", "abc123", 25);
-// carro.getProducts().then(products => { console.log(products); }) 
 
