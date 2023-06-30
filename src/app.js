@@ -9,7 +9,7 @@ app.use(express.json())
 
 
 
-const productManager = new ProductManager('productos.json')
+const productManager = new ProductManager('../productos.json')
 
 
 
