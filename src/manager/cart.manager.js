@@ -5,6 +5,12 @@ export default class CartManager extends ArchivoManager{
         super('./carts.json')
     }
     create = async () => {
+        const fileExists = fs.existsSync(this.filename);
+
+        if (!fileExists) {
+
+            fs.writeFileSync(this.filename, "[]")
+        }
         const data = {
             products: []
         }

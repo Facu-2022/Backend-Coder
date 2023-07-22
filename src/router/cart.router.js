@@ -16,6 +16,7 @@ router.get('/:cid/', async(req,res)=>{
 router.post('/', async(req,res)=>{
     const result = await cartManager.create()
     res.send(result)
+    res.status(201).send("Cart creado exitosamente")
 })
 router.post('/:cid/product/:pid', async (req, res) => {
     const cid = parseInt(req.params.cid);

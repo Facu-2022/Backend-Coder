@@ -19,15 +19,18 @@ export default class ProductManager extends ArchivoManager {
     updateProduct = async (data, id) => {
         let productExist = await this.getById(id)
         if(!productExist){
-            throw new Error('id no encontrado', 404)
+            const error=  new Error('id no encontrado')
+            error.status=404;
+            throw error;
         }
         await this.update(data, id);
         return productExist;
     }
     deleteProduct = async (id) => {
-        let productExist = await this.getById(id);
-        if (!productExist) {
-            throw new Error('Producto no encontrado', 404);
+        if(!productExist){
+            const error=  new Error('producto no encontrado')
+            error.status=404;
+            throw error;
         }
         await this.delete(id);
         return productExist;
