@@ -68,35 +68,8 @@ router.put('/:pid', async (req, res) => {
         console.log(error.message);
         res.status(status).json(error.message);
     }
-    });
+  });
     
-
-
-// router.put('/:pid', async (req, res) => {
-//     const productId = req.params.pid;
-//     const { title, description, code, price, status, stock, category, thumbnails } = req.body;
-//     if (!(title && description && code && price && stock && category && thumbnails)) {
-//         return res.status(404).json({ error: '2faltan campos obligatorios' })
-//     }
-//     const updatedData = {
-//         title,
-//         description,
-//         code,
-//         price,
-//         status: status ?? true,
-//         stock,
-//         category,
-//         thumbnails
-//     }
-//     try {
-//         const updatedProduct = await productManager.updateProduct(updatedData, productId);
-//         res.send(updatedProduct);
-//     } catch (error) {
-//         const status = error.status || 404
-//         console.log(error.message);
-//         res.status(status).json(error.message);
-//     }
-// });
 router.delete('/:pid', async (req, res) => {
     const productId = req.params.pid;
 
