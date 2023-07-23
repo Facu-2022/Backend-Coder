@@ -68,7 +68,7 @@ router.put('/:pid', async (req, res) => {
         console.log(error.message);
         res.status(status).json(error.message);
     }
-  });
+});
     
 router.delete('/:pid', async (req, res) => {
     const productId = req.params.pid;

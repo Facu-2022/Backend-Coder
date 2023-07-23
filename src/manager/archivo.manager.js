@@ -18,7 +18,8 @@ class ArchivoManager {
     }
     getById = async (id) => {
         const data = await this.get()
-        return data.find(d => d.id == id)
+        let product = data.find(d => d.id == id)
+        return product
     }
     set = async (data) => {
         const list = await this.get()

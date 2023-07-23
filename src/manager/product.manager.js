@@ -7,7 +7,7 @@ export default class ProductManager extends ArchivoManager {
     }
     create = async (data) => {
         const result = await this.set(data)
-        return result
+        return result;
     }
     list = async (limit) => {
         const result = await this.get();

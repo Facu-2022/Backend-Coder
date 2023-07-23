@@ -1,0 +1,107 @@
+<h1>Products Real Time</h1>
+<hr />
+
+  
+    <h2>Formulario de Productos</h2>
+    <hr />
+<form id="myForm"  className='container mt-3'>
+    <div class="form-group">
+        <label for="code">CODE:</label>
+        <input type="number" class="form-control" id="code" name="code" required>
+    </div>
+    <div class="form-group">
+        <label for="title">TITLE:</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+        <label for="description">DESCRIPTION:</label>
+        <input type="text" class="form-control" id="description" name="description" required>
+    </div>
+    <div class="form-group">
+        <label for="price">PRICE:</label>
+        <input type="number" class="form-control" id="price" name="price" required>
+    </div>
+    <div class="form-group">
+        <label for="thumbnails">THUMBNAILS:</label>
+        <input type="text" class="form-control" id="thumbnails" name="thumbnails" required>
+    </div>
+    <div class="form-group">
+        <label for="stock">STOCK:</label>
+        <input type="number" class="form-control" id="stock" name="stock" required>
+    </div>
+
+    </div>
+    <button type="submit" class="btn btn-success">Enviar</button>
+</form>
+<hr />
+
+
+
+ <table border="2">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Thumbnails</th>
+        <th>Stock</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+        {{#each products}}
+            <tr>
+                <td>{{this.code}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.thumbnails}}</td>
+                <td>{{this.stock}}</td>
+                <td>{{this.id}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+  </table>
+
+<script>
+  const socket = io()
+
+
+document.getElementById('myForm').onsubmit = e => {
+    e.preventDefault()
+
+    const code = document.querySelector('input[name=code]').value
+    const title = document.querySelector('input[name=title]').value
+    const description = document.querySelector('input[name=description]').value
+    const price = parseInt(document.querySelector('input[name=price]').value)
+    const thumbnails = document.querySelector('input[name=thumbnails]').value
+    const stock = parseInt(document.querySelector('input[name=stock]').value)
+    
+    const product = {code, title, description, price, thumbnails, stock}
+    socket.emit('new-product', product),
+    myForm.reset();
+}
+
+socket.on('reload-table', products => {
+  console.log(products)
+  const tbody = document.getElementById('tbody')
+
+  let html = ''
+  
+  products.forEach(product => {
+    html += `<tr>
+    <td>${product.code}</td>
+    <td>${product.title}</td>
+    <td>${product.description}</td>
+    <td>${product.price}</td>
+    <td>${product.thumbnails}</td>
+    <td>${product.stock}</td>
+    <td>${product.id}</td>
+    </tr>
+    `
+  })
+  tbody.innerHTML = html
+})
+
+</script>
