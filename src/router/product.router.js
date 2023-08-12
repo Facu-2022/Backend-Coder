@@ -1,12 +1,12 @@
 import { Router } from 'express'
-import ProductManager from '../manager/product.manager.js'
-
+import ProductManager from '../DAO/mongoManager/models/product.model.js'
+import ProductModel from '../DAO/mongoManager/models/product.model.js'
 const router = Router()
 const productManager = new ProductManager()
 
 router.get('/', async (req, res) => {
     const limit = req.query.limit;
-    const result = await productManager.list(limit)
+    const result = await ProductModel.find(limit)
     res.send(result)
 })
 
@@ -14,7 +14,7 @@ router.get('/:id', async (req, res) => {
     const productId = req.params.id;
 
     try {
-        const product = await productManager.getById(productId);
+        const product = await ProductModel.getById(productId);
         if (product) {
             res.json(product);
             
@@ -43,9 +43,9 @@ router.post('/', async (req, res) => {
         category,
         thumbnails
     }
-    const result = await productManager.create(data)
-    res.send(result)
-    res.status(201).send("producto creado exitosamente")
+    const result = await ProductModel.create(data)
+    
+    res.status(201).send("producto creado exitosamente", result)
 })
 router.put('/:pid', async (req, res) => {
     const productId = req.params.pid;
@@ -61,7 +61,7 @@ router.put('/:pid', async (req, res) => {
         thumbnails
     }
      try {
-        const updatedProduct = await productManager.updateProduct(updatedData, productId);
+        const updatedProduct = await ProductModel.updateProduct(updatedData, productId);
         res.send(updatedProduct);
     } catch (error) {
         const status = error.status || 404
@@ -74,7 +74,7 @@ router.delete('/:pid', async (req, res) => {
     const productId = req.params.pid;
 
     try {
-        await productManager.deleteProduct(productId);
+        await ProductModel.deleteProduct(productId);
         res.send('Producto eliminado correctamente');
     } catch (error) {
         const status = error.status || 404;

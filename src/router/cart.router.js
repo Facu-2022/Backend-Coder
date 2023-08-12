@@ -1,28 +1,31 @@
 import { Router } from 'express'
-import CartManager from '../manager/cart.manager.js'
+import CartModel from '../DAO/mongoManager/models/cart.model.js'
 
 const router = Router()
-const cartManager = new CartManager()
+
 
 router.get('/', async(req,res)=>{
-    const result = await cartManager.list()
+    const result = await CartModel.find()
     res.send(result)
 })
 router.get('/:cid/', async(req,res)=>{
     const cid = parseInt(req.params.cid)
-    const result = await cartManager.getById(cid)
+    const result = await CartModel.getById(cid)
     res.send(result)
 })
 router.post('/', async(req,res)=>{
-    const result = await cartManager.create()
-    res.send(result)
-    res.status(201).send("Cart creado exitosamente")
+    const result = await CartModel.create({products: []})
+    res.send({status: "cart creado exitsamente",result})
 })
 router.post('/:cid/product/:pid', async (req, res) => {
     const cid = parseInt(req.params.cid);
     const pid = parseInt(req.params.pid);
   
-    const result = await cartManager.addProduct(cid, pid);
+    const cantidad = req.query.cantidad || 1
+
+    const cart = await CartModel.findById(cid)
+    cart.products.push({ id: pid, cantidad })
+    const result = cart.save()
     res.send(result);
   });
 export default router
