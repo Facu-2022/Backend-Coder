@@ -11,11 +11,11 @@ router.post('/send-message', async (req, res) => {
   const data = req.body;
   try {
     const savedMessage = await ChatModel.create(data);
-    console.log('Message saved:', savedMessage);
+    console.log('Mensaje guardado:', savedMessage);
     res.send(savedMessage);
   } catch (error) {
-    console.error('Error saving message:', error);
-    res.status(500).send('Error saving message');
+    console.error('Error al guardar el mensaje:', error);
+    res.status(500).send('error al guardar');
   }
 });
 

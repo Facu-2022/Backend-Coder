@@ -24,7 +24,7 @@ app.use('/api/carts', cartRouter)
 app.use('/api/chat', chatRouter)
 
 
-const URL =  "mongodb+srv://Facu2024:Facu2023@ecommerce.ybfxkuq.mongodb.net/"
+const URL =  "mongodb+srv://Facu2024:Facu2024@ecommerce.ybfxkuq.mongodb.net/"
 
 
 
