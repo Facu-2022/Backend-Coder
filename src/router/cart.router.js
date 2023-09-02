@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import CartModel from '../DAO/mongoManager/models/cart.model.js'
+import productModel from "../DAO/mongoManager/models/product.model.js"
 
 const router = Router()
 
@@ -8,7 +9,7 @@ router.get('/', async(req,res)=>{
     const result = await CartModel.find()
     res.send(result)
 })
-router.get('/:cid/', async(req,res)=>{
+router.get('/:cid', async(req,res)=>{
     const cid = parseInt(req.params.cid)
     const result = await CartModel.getById(cid)
     res.send(result)

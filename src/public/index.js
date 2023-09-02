@@ -9,7 +9,7 @@ if (!user) {
     input: "text",
     text: "Set username",
     inputValidator: (value) => {
-      return !value.trim() && "Please write a username";
+      return !value.trim() && "Por favor ingrese su nombre";
     },
     allowOutsideClick: false,
   }).then((result) => {

@@ -6,6 +6,7 @@ import viewsRouter from './router/views.router.js'
 import handlebars from 'express-handlebars'
 import cartRouter from './router/cart.router.js'
 import ProductManager from "./DAO/fileManager/product.manager.js";
+import ChatModel from './DAO/mongoManager/models/chat.model.js'
 import mongoose from "mongoose";
 import chatRouter from './router/chat.router.js'
 const app = express()
@@ -50,8 +51,14 @@ const serverConnect = () => {
             messages.push(data)
             io.emit('logs', messages)
         })
-        socket.on('cliente:message', data => {
+        socket.on('client:message', async data => {
             messages.push(data);
+            try {
+                const savedMessage = await ChatModel.create(data);
+            } catch (error) {
+                console.error('Error saving message:', error);
+            }
+            console.log('Current messages:', messages);
             io.emit('server:messages', messages);
         })
     })
